@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 public class Creature {
 	
-	private int PANEL_WIDTH;
-	private int PANEL_HEIGHT;
+	private final int PANEL_WIDTH;
+	private final int PANEL_HEIGHT;
     private int creatureWidth;
 	private int creatureHeight;
     private double x = 0 ,y = 0;
