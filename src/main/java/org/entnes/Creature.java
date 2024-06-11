@@ -17,9 +17,9 @@ public class Creature {
     private Double angle = 0.0;
     private int foodConsumed = 0;
 	
-	Creature(int CREATURE_WIDTH, int CREATURE_HEIGHT, int PANEL_WIDTH, int PANEL_HEIGHT) {
-		this.creatureWidth = CREATURE_WIDTH;
-		this.creatureHeight = CREATURE_HEIGHT;
+	Creature(int PANEL_WIDTH, int PANEL_HEIGHT, int creatureWidth, int creatureHeight) {
+		this.creatureWidth = creatureWidth;
+		this.creatureHeight = creatureHeight;
 		this.PANEL_WIDTH = PANEL_WIDTH;
 		this.PANEL_HEIGHT = PANEL_HEIGHT;
 	}

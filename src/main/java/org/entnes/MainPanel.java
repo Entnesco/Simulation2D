@@ -12,16 +12,16 @@ public class MainPanel extends JPanel implements ActionListener {
     final int PANEL_HEIGHT = 500;
     
     //Creature settings
-    final int CREATURE_WIDTH = 30;
-    final int CREATURE_HEIGHT = 30;
-    double VelocityCreature = 4;
+    int creatureWidth = 30;
+    int creatureHeight = 30;
+    double velocityCreature = 4;
     double angleCreature = 30;
     double angleCreatureDynamic = 0.0;
     Creature creature;
     
     //Food settings
-    final int FOOD_WIDTH = 10;
-    final int FOOD_HEIGHT = 10;
+    int foodWidth = 10;
+    int foodHeight = 10;
     final int MAX_FOOD_QUANTITY = 1;
     int foodQuantity = 1;
     Food food;
@@ -31,9 +31,6 @@ public class MainPanel extends JPanel implements ActionListener {
     final int TIMER1000_MS = 1000;
     Timer timer1;
     Timer timer2;
-     
-//    Image enemy;
-//    Image backgroundImage;
 
     MainPanel(){
         this.setPreferredSize(new Dimension(PANEL_WIDTH,PANEL_HEIGHT));
@@ -41,8 +38,8 @@ public class MainPanel extends JPanel implements ActionListener {
         timer1.start();
         timer2 = new Timer(TIMER1000_MS,this);
         timer2.start();
-        food = new Food(foodQuantity, PANEL_WIDTH, PANEL_HEIGHT, FOOD_WIDTH, FOOD_HEIGHT);
-        creature = new Creature(CREATURE_WIDTH, CREATURE_HEIGHT, PANEL_WIDTH, PANEL_HEIGHT);
+        food = new Food(PANEL_WIDTH, PANEL_HEIGHT, foodQuantity, foodWidth, foodHeight);
+        creature = new Creature(PANEL_WIDTH, PANEL_HEIGHT, creatureWidth, creatureHeight);
     }
 
     public void paint(Graphics g){
@@ -60,10 +57,10 @@ public class MainPanel extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
     	if(e.getSource() == timer1) {
-    		food.deleteFood(creature.collisionCheck(food.getxFoodCords(), food.getyFoodCords(), FOOD_WIDTH, FOOD_HEIGHT));
+    		food.deleteFood(creature.collisionCheck(food.getxFoodCords(), food.getyFoodCords(), foodWidth, foodHeight));
             if(!creature.searchForFood(food.getxFoodCords(), food.getyFoodCords()).isEmpty()) {
                 angleCreatureDynamic = creature.searchForFood(food.getxFoodCords(), food.getyFoodCords()).get(5);
-                creature.moveCreature(VelocityCreature, angleCreatureDynamic);
+                creature.moveCreature(velocityCreature, angleCreatureDynamic);
             }
 
     		food.moveFood();

@@ -8,45 +8,49 @@ import java.util.Random;
 public class Food {
 	
 	private int foodQuantity = 0;
-	private int PANEL_WIDTH;
-	private int PANEL_HEIGHT;
-	private int FOOD_WIDTH;
-	private int FOOD_HEIGHT;
+	private final int PANEL_WIDTH;
+	private final int PANEL_HEIGHT;
+	private int foodWidth;
+	private int foodHeight;
+
+	private int foodMaxSpeed = 4;
+
+	private int foodMinSpeed = 3;
 	Random random = new Random();
 	private ArrayList<Integer> xFoodCords = new ArrayList<>();
 	private ArrayList<Integer> yFoodCords = new ArrayList<>();
 	private ArrayList<Integer> xFoodVelocity = new ArrayList<>();
 	private ArrayList<Integer> yFoodVelocity = new ArrayList<>();
 	
-    Food(int foodQuantity, int PANEL_WIDTH, int PANEL_HEIGHT, int FOOD_WIDTH, int FOOD_HEIGHT) {    	
+    Food(int PANEL_WIDTH, int PANEL_HEIGHT, int foodQuantity, int foodWidth, int foodHeight) {
     	this.foodQuantity = foodQuantity;
     	this.PANEL_WIDTH = PANEL_WIDTH;
     	this.PANEL_HEIGHT = PANEL_HEIGHT;
-    	this.FOOD_WIDTH = FOOD_WIDTH;
-    	this.FOOD_HEIGHT = FOOD_HEIGHT;  
+    	this.foodWidth = foodWidth;
+    	this.foodHeight = foodHeight;
     	for (int i = 0; i < foodQuantity; i++) {
-    		xFoodCords.add(random.nextInt(PANEL_WIDTH-FOOD_WIDTH));
-    		yFoodCords.add(random.nextInt(PANEL_HEIGHT-FOOD_HEIGHT));
-    		xFoodVelocity.add(random.nextInt(5)+1);
-    		yFoodVelocity.add(random.nextInt(5)+1);
+    		xFoodCords.add(random.nextInt(PANEL_WIDTH- foodWidth));
+    		yFoodCords.add(random.nextInt(PANEL_HEIGHT- foodHeight));
+    		xFoodVelocity.add(random.nextInt(foodMaxSpeed-foodMinSpeed)+foodMinSpeed);
+    		yFoodVelocity.add(random.nextInt(foodMaxSpeed-foodMinSpeed)+foodMinSpeed);
     	}
     }
     
     public void drawFood(Graphics2D g2D) {    	
     	for (int i = 0; i < foodQuantity; i++) {
 	        g2D.setPaint(Color.green);
-	        g2D.fillRect(xFoodCords.get(i), yFoodCords.get(i), FOOD_WIDTH, FOOD_HEIGHT);
+	        g2D.fillRect(xFoodCords.get(i), yFoodCords.get(i), foodWidth, foodHeight);
     	}
     }
     
     public void addFood(int toAddFood, int maxFood) {    	
     	if(foodQuantity <maxFood) {
-    		int currentfoodQuantity = foodQuantity;
-	    	for (int i = currentfoodQuantity; i < currentfoodQuantity + toAddFood; i++) {
-	    		xFoodCords.add(random.nextInt(PANEL_WIDTH-FOOD_WIDTH));
-	    		yFoodCords.add(random.nextInt(PANEL_HEIGHT-FOOD_HEIGHT));
-	    		xFoodVelocity.add(random.nextInt(3)+1);
-	    		yFoodVelocity.add(random.nextInt(3)+1);
+    		int currentFoodQuantity = foodQuantity;
+	    	for (int i = currentFoodQuantity; i < currentFoodQuantity + toAddFood; i++) {
+	    		xFoodCords.add(random.nextInt(PANEL_WIDTH- foodWidth));
+	    		yFoodCords.add(random.nextInt(PANEL_HEIGHT- foodHeight));
+				xFoodVelocity.add(random.nextInt(foodMaxSpeed-foodMinSpeed)+foodMinSpeed);
+				yFoodVelocity.add(random.nextInt(foodMaxSpeed-foodMinSpeed)+foodMinSpeed);
 	    		foodQuantity++;	    		
 	    	}	
     	}
@@ -55,8 +59,8 @@ public class Food {
     
     public void deleteSomeFood(int toDeleteFood) {    	
     	if(foodQuantity > 0) {
-    		int currentfoodQuantity = foodQuantity;
-	    	for (int i = currentfoodQuantity; i > currentfoodQuantity - toDeleteFood; i--) {
+    		int currentFoodQuantity = foodQuantity;
+	    	for (int i = currentFoodQuantity; i > currentFoodQuantity - toDeleteFood; i--) {
 	    		xFoodCords.remove(foodQuantity-1);
 	    		yFoodCords.remove(foodQuantity-1);
 	    		xFoodVelocity.remove(foodQuantity-1);
@@ -80,11 +84,11 @@ public class Food {
     
     public void moveFood() {
     	for (int i = 0; i < foodQuantity; i++) {
-	        if(xFoodCords.get(i) >= PANEL_WIDTH-FOOD_WIDTH || xFoodCords.get(i) < 0){
+	        if(xFoodCords.get(i) >= PANEL_WIDTH- foodWidth || xFoodCords.get(i) < 0){
 	        	xFoodVelocity.set(i, -xFoodVelocity.get(i));
 	        }
 	
-	        if(yFoodCords.get(i) >= PANEL_HEIGHT-FOOD_HEIGHT || yFoodCords.get(i) < 0){
+	        if(yFoodCords.get(i) >= PANEL_HEIGHT- foodHeight || yFoodCords.get(i) < 0){
 	        	yFoodVelocity.set(i, -yFoodVelocity.get(i));
 	        }
 	
