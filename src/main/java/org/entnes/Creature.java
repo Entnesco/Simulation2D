@@ -24,38 +24,137 @@ public class Creature {
 		this.PANEL_HEIGHT = PANEL_HEIGHT;
 	}
 	
-    public void moveCreature(double  velocityInit, Double angleInit) {
-    	if(velocity == 0) velocity = velocityInit;
-    	angle = angleInit;
-    	
-//        if(x > PANEL_WIDTH-creatureWidth || x < 0){
-//            angle = 180-angle;
-//        }
+//    public void moveCreatureFollowNearestFood(double  velocityInit, double angleInit) {
+//    	if(velocity == 0) velocity = velocityInit;
+//    	angle = angleInit;
 //
-//        if(y > PANEL_HEIGHT-creatureHeight || y < 0){
-//        	angle = -angle;
-//        }
+//
+//        if(angle >= 360) angle = angle - 360;
+//        if(angle <= -360) angle = angle + 360;
+//
+//    	xVelocity = Math.round(Math.cos(Math.toRadians(angle))*velocity*1000)/1000d;
+//    	yVelocity = Math.round(Math.sin(Math.toRadians(angle))*velocity*1000)/1000d;
+//
+//        x = x + xVelocity;
+//        y = y + yVelocity;
+//
+//		if(x > PANEL_WIDTH-creatureWidth || x < 0){
+//			x = x - xVelocity;
+//		}
+//
+//		if(y > PANEL_HEIGHT-creatureHeight || y < 0){
+//			y = y - yVelocity;
+//		}
+
+		public void moveCreatureFollowNearestFood(double  velocityInit, ArrayList<Integer> xFoodCords, ArrayList<Integer> yFoodCords) {
+			if(velocity == 0) velocity = velocityInit;
+
+			ArrayList<Double> nearestFood = new ArrayList<>();
+
+			if(xFoodCords.size() > 1) {
+				double xFood = xFoodCords.get(0);
+				double yFood = yFoodCords.get(0);
+				double xDist = xFood-x;
+				double yDist = yFood-y;
+				double distCreatureFood = Math.sqrt(Math.pow(xDist, 2) + Math.pow(yDist, 2));
+				angle = Math.toDegrees(Math.acos(xDist/distCreatureFood));
+				if(yDist<0) angle = -angle;
+
+				nearestFood.clear();
+				nearestFood.add(xFood);
+				nearestFood.add(yFood);
+				nearestFood.add(xDist);
+				nearestFood.add(yDist);
+				nearestFood.add(distCreatureFood);
+				nearestFood.add(angle);
+
+				for(int id = 1; id < xFoodCords.size(); id++) {
+					xFood = xFoodCords.get(id);
+					yFood = yFoodCords.get(id);
+					xDist = xFood-x;
+					yDist = yFood-y;
+					distCreatureFood = Math.sqrt(Math.pow(xDist, 2) + Math.pow(yDist, 2));
+					angle = Math.toDegrees(Math.acos(xDist/distCreatureFood));
+					if(yDist<0) angle = -angle;
+
+					if(Math.abs(distCreatureFood) < Math.abs(nearestFood.get(4))) {
+						nearestFood.set(0, xFood);
+						nearestFood.set(1, yFood);
+						nearestFood.set(2, xDist);
+						nearestFood.set(3, yDist);
+						nearestFood.set(4, distCreatureFood);
+						nearestFood.set(5, angle);
+					}
+				}
+
+			}
+			else if(xFoodCords.size() == 1){
+				double xFood = xFoodCords.get(0);
+				double yFood = yFoodCords.get(0);
+				double xDist = xFood-x;
+				double yDist = yFood-y;
+				double distCreatureFood = Math.sqrt(Math.pow(xDist, 2) + Math.pow(yDist, 2));
+				angle = Math.toDegrees(Math.acos(xDist/distCreatureFood));
+				if(yDist<0) angle = -angle;
 
 
-        if(angle >= 360) angle = angle - 360;
-        if(angle <= -360) angle = angle + 360;
-    	
-    	xVelocity = Math.round(Math.cos(Math.toRadians(angle))*velocity*1000)/1000d;
-    	yVelocity = Math.round(Math.sin(Math.toRadians(angle))*velocity*1000)/1000d;
+				nearestFood.clear();
+				nearestFood.add(xFood);
+				nearestFood.add(yFood);
+				nearestFood.add(xDist);
+				nearestFood.add(yDist);
+				nearestFood.add(distCreatureFood);
+				nearestFood.add(angle);
+			}
 
-        x = x + xVelocity;
-        y = y + yVelocity;
+			if(!nearestFood.isEmpty()) angle = nearestFood.get(5);
 
-		if(x > PANEL_WIDTH-creatureWidth || x < 0){
-			x = x - xVelocity;
-		}
+			if(angle >= 360) angle = angle - 360;
+			if(angle <= -360) angle = angle + 360;
 
-		if(y > PANEL_HEIGHT-creatureHeight || y < 0){
-			y = y - yVelocity;
-		}
-        
+			xVelocity = Math.round(Math.cos(Math.toRadians(angle))*velocity*1000)/1000d;
+			yVelocity = Math.round(Math.sin(Math.toRadians(angle))*velocity*1000)/1000d;
+
+			if(!nearestFood.isEmpty()) {
+				x = x + xVelocity;
+				y = y + yVelocity;
+			}
+
+			if(x > PANEL_WIDTH-creatureWidth || x < 0){
+				x = x - xVelocity;
+				y = y - yVelocity;
+			}
+
+			if(y > PANEL_HEIGHT-creatureHeight || y < 0){
+				x = x - xVelocity;
+				y = y - yVelocity;
+			}
+
+
 
     }
+
+	public void moveCreatureSimpleBounce(double  velocityInit, double angleInit) {
+		if(velocity == 0) velocity = velocityInit;
+		if(angle == 0) angle = angleInit;
+
+        if(x > PANEL_WIDTH-creatureWidth || x < 0){
+            angle = 180-angle;
+        }
+
+        if(y > PANEL_HEIGHT-creatureHeight || y < 0){
+        	angle = -angle;
+        }
+
+		xVelocity = Math.round(Math.cos(Math.toRadians(angle))*velocity*1000)/1000d;
+		yVelocity = Math.round(Math.sin(Math.toRadians(angle))*velocity*1000)/1000d;
+
+		if(angle >= 360) angle = angle - 360;
+		if(angle <= -360) angle = angle + 360;
+
+		x = x + xVelocity;
+		y = y + yVelocity;
+	}
     
     public void drawCreature(Graphics2D g2D) {
         g2D.setPaint(Color.gray);

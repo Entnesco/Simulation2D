@@ -58,11 +58,8 @@ public class MainPanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
     	if(e.getSource() == timer1) {
     		food.deleteFood(creature.collisionCheck(food.getxFoodCords(), food.getyFoodCords(), foodWidth, foodHeight));
-            if(!creature.searchForFood(food.getxFoodCords(), food.getyFoodCords()).isEmpty()) {
-                angleCreatureDynamic = creature.searchForFood(food.getxFoodCords(), food.getyFoodCords()).get(5);
-                creature.moveCreature(velocityCreature, angleCreatureDynamic);
-            }
-
+            creature.moveCreatureFollowNearestFood(velocityCreature, food.getxFoodCords(), food.getyFoodCords());
+//            creature.moveCreatureSimpleBounce(velocityCreature, angleCreature);
     		food.moveFood();
 	        repaint();
         }
