@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
-
 public class MainPanel extends JPanel implements ActionListener {
 	
 	//Panel settings
@@ -22,8 +21,8 @@ public class MainPanel extends JPanel implements ActionListener {
     //Food settings
     int foodWidth = 10;
     int foodHeight = 10;
-    final int MAX_FOOD_QUANTITY = 1;
-    int foodQuantity = 1;
+    final int MAX_FOOD_QUANTITY = 20;
+    int foodQuantity = 20;
     Food food;
     
     //Timers settings
@@ -57,8 +56,8 @@ public class MainPanel extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
     	if(e.getSource() == timer1) {
-    		food.deleteFood(creature.collisionCheck(food.getxFoodCords(), food.getyFoodCords(), foodWidth, foodHeight));
-            creature.moveCreatureFollowNearestFood(velocityCreature, food.getxFoodCords(), food.getyFoodCords());
+    		food.deleteFood(creature.collisionCheck(food.getXFoodCords(), food.getYFoodCords(), foodWidth, foodHeight));
+            creature.moveCreatureFollowNearestFood(velocityCreature, food.getXFoodCords(), food.getYFoodCords());
 //            creature.moveCreatureSimpleBounce(velocityCreature, angleCreature);
     		food.moveFood();
 	        repaint();

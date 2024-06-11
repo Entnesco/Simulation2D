@@ -3,7 +3,10 @@ package org.entnes;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter @Setter
 public class Creature {
 	
 	private final int PANEL_WIDTH;
@@ -129,9 +132,6 @@ public class Creature {
 				x = x - xVelocity;
 				y = y - yVelocity;
 			}
-
-
-
     }
 
 	public void moveCreatureSimpleBounce(double  velocityInit, double angleInit) {
@@ -244,76 +244,4 @@ public class Creature {
 
 		return nerestFood;
     }
-
-	public int getFoodConsumed() {
-		return foodConsumed;
-	}
-
-	public void setFoodConsumed(int foodConsumed) {
-		this.foodConsumed = foodConsumed;
-	}
-	
-    public int getxVelocity(int xVelocity) {
-    	return xVelocity;
-    }
-	
-    public void setxVelocity(int xVelocity) {
-    	this.xVelocity = xVelocity;
-    }
-
-    public int getyVelocity(int yVelocity) {
-    	return yVelocity;
-    }
-    
-    public void setyVelocity(int yVelocity) {
-    	this.yVelocity = yVelocity;
-    }
-    
-    public int getCreatureWidth() {
-		return creatureWidth;
-	}
-
-	public void setCreatureWidth(int creatureWidth) {
-		this.creatureWidth = creatureWidth;
-	}
-
-	public int getCreatureHeight() {
-		return creatureHeight;
-	}
-
-	public void setCreatureHeight(int creatureHeight) {
-		this.creatureHeight = creatureHeight;
-	}
-
-	public double getX() {
-		return x;
-	}
-
-	public void setX(double x) {
-		this.x = x;
-	}
-
-	public double getY() {
-		return y;
-	}
-
-	public void setY(double y) {
-		this.y = y;
-	}
-
-	public double getVelocity() {
-		return velocity;
-	}
-
-	public void setVelocity(double velocity) {
-		this.velocity = velocity;
-	}
-
-	public double getAngle() {
-		return angle;
-	}
-
-	public void setAngle(double angle) {
-		this.angle = angle;
-	}
 }

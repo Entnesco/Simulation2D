@@ -4,7 +4,10 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Random;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter @Setter
 public class Food {
 	
 	private int foodQuantity = 0;
@@ -96,26 +99,5 @@ public class Food {
 	        yFoodCords.set(i, (yFoodCords.get(i) + yFoodVelocity.get(i)));
     	}
     }
-    
-    public int getFoodQuantity() {
-    	return foodQuantity;
-    }
-    
-    public ArrayList<Integer> getxFoodCords(){
-    	return xFoodCords;
-    }
-    
-    public ArrayList<Integer> getyFoodCords(){
-    	return yFoodCords;
-    }
-    
-    public ArrayList<Integer> getxFoodVeliocity(){
-    	return xFoodVelocity;
-    }
-    
-    public ArrayList<Integer> getyFoodVeliocity(){
-    	return yFoodVelocity;
-    }
-    
 
 }
