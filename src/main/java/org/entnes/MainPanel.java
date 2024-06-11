@@ -1,8 +1,6 @@
 package org.entnes;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Random;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
@@ -16,16 +14,16 @@ public class MainPanel extends JPanel implements ActionListener {
     //Creature settings
     final int CREATURE_WIDTH = 30;
     final int CREATURE_HEIGHT = 30;
-    double VelocityCreatue = 4;
-    double angleCreatue = 30;
-    double angleCreatueDinamic = 0.0;
+    double VelocityCreature = 4;
+    double angleCreature = 30;
+    double angleCreatureDynamic = 0.0;
     Creature creature;
     
     //Food settings
     final int FOOD_WIDTH = 10;
     final int FOOD_HEIGHT = 10;
-    final int MAX_FOOD_QUANTITY = 2;
-    int foodQuantity = 2;
+    final int MAX_FOOD_QUANTITY = 1;
+    int foodQuantity = 1;
     Food food;
     
     //Timers settings
@@ -35,9 +33,7 @@ public class MainPanel extends JPanel implements ActionListener {
     Timer timer2;
      
 //    Image enemy;
-//    Image backgroundImage;  
-    
-	Random random = new Random();	
+//    Image backgroundImage;
 
     MainPanel(){
         this.setPreferredSize(new Dimension(PANEL_WIDTH,PANEL_HEIGHT));
@@ -64,12 +60,11 @@ public class MainPanel extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
     	if(e.getSource() == timer1) {
-    		food.deleteFood(creature.collsionCheck(food.getxFoodCords(), food.getyFoodCords(), FOOD_WIDTH, FOOD_HEIGHT));
-            if(creature.searchForFood(food.getxFoodCords(), food.getyFoodCords()) != null) {
-                angleCreatueDinamic = creature.searchForFood(food.getxFoodCords(), food.getyFoodCords()).get(5);
-                creature.moveCreature(VelocityCreatue,angleCreatueDinamic);
+    		food.deleteFood(creature.collisionCheck(food.getxFoodCords(), food.getyFoodCords(), FOOD_WIDTH, FOOD_HEIGHT));
+            if(!creature.searchForFood(food.getxFoodCords(), food.getyFoodCords()).isEmpty()) {
+                angleCreatureDynamic = creature.searchForFood(food.getxFoodCords(), food.getyFoodCords()).get(5);
+                creature.moveCreature(VelocityCreature, angleCreatureDynamic);
             }
-//            System.out.println(angleCreatueDinamic);
 
     		food.moveFood();
 	        repaint();

@@ -62,7 +62,7 @@ public class Creature {
         g2D.fillRect((int)x, (int)y, creatureWidth, creatureHeight);
     }
     
-    public int collsionCheck(ArrayList<Integer> xFoodCords, ArrayList<Integer> yFoodCords, int foodWidth, int foodHeight) {
+    public int collisionCheck(ArrayList<Integer> xFoodCords, ArrayList<Integer> yFoodCords, int foodWidth, int foodHeight) {
     	for(int id = 0; id < xFoodCords.size(); id++) {
     		if(!((xFoodCords.get(id) + foodWidth < x) || (xFoodCords.get(id) > x + creatureWidth))) {
         		if(!((yFoodCords.get(id) + foodHeight < y) || (yFoodCords.get(id) > y + creatureHeight))) {
@@ -81,6 +81,8 @@ public class Creature {
     
     public ArrayList<Double> searchForFood(ArrayList<Integer> xFoodCords, ArrayList<Integer> yFoodCords)
     {
+		ArrayList<Double> nerestFood = new ArrayList<>();
+
     	if(xFoodCords.size() > 1) {
 	    	double xFood = xFoodCords.get(0);
 	    	double yFood = yFoodCords.get(0);
@@ -90,7 +92,7 @@ public class Creature {
 	    	angle = Math.toDegrees(Math.acos(xDist/distCreatureFood));
 			if(yDist<0) angle = -angle;
 	    	
-	    	ArrayList<Double> nerestFood = new ArrayList<>();
+	    	nerestFood.clear();
 	    	nerestFood.add(xFood);
 	    	nerestFood.add(yFood);
 	    	nerestFood.add(xDist);
@@ -129,8 +131,8 @@ public class Creature {
 			angle = Math.toDegrees(Math.acos(xDist/distCreatureFood));
 			if(yDist<0) angle = -angle;
 
-	    	
-	    	ArrayList<Double> nerestFood = new ArrayList<>();
+
+			nerestFood.clear();
 			nerestFood.add(xFood);
 			nerestFood.add(yFood);
 			nerestFood.add(xDist);
@@ -141,7 +143,7 @@ public class Creature {
 	    	return nerestFood;
     	}
 
-		return null;
+		return nerestFood;
     }
 
 	public int getFoodConsumed() {
