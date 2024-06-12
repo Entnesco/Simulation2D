@@ -26,28 +26,6 @@ public class Creature {
 		this.PANEL_WIDTH = PANEL_WIDTH;
 		this.PANEL_HEIGHT = PANEL_HEIGHT;
 	}
-	
-//    public void moveCreatureFollowNearestFood(double  velocityInit, double angleInit) {
-//    	if(velocity == 0) velocity = velocityInit;
-//    	angle = angleInit;
-//
-//
-//        if(angle >= 360) angle = angle - 360;
-//        if(angle <= -360) angle = angle + 360;
-//
-//    	xVelocity = Math.round(Math.cos(Math.toRadians(angle))*velocity*1000)/1000d;
-//    	yVelocity = Math.round(Math.sin(Math.toRadians(angle))*velocity*1000)/1000d;
-//
-//        x = x + xVelocity;
-//        y = y + yVelocity;
-//
-//		if(x > PANEL_WIDTH-creatureWidth || x < 0){
-//			x = x - xVelocity;
-//		}
-//
-//		if(y > PANEL_HEIGHT-creatureHeight || y < 0){
-//			y = y - yVelocity;
-//		}
 
 		public void moveCreatureFollowNearestFood(double  velocityInit, ArrayList<Integer> xFoodCords, ArrayList<Integer> yFoodCords) {
 			if(velocity == 0) velocity = velocityInit;

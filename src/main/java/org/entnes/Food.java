@@ -47,35 +47,39 @@ public class Food {
     }
     
     public void addFood(int toAddFood, int maxFood) {    	
-    	if(foodQuantity <maxFood) {
-    		int currentFoodQuantity = foodQuantity;
-	    	for (int i = currentFoodQuantity; i < currentFoodQuantity + toAddFood; i++) {
-	    		xFoodCords.add(random.nextInt(PANEL_WIDTH- foodWidth));
-	    		yFoodCords.add(random.nextInt(PANEL_HEIGHT- foodHeight));
+
+		int currentFoodQuantity = foodQuantity;
+		for (int i = currentFoodQuantity; i < currentFoodQuantity + toAddFood; i++) {
+			if(foodQuantity <maxFood) {
+				xFoodCords.add(random.nextInt(PANEL_WIDTH- foodWidth));
+				yFoodCords.add(random.nextInt(PANEL_HEIGHT- foodHeight));
 				xFoodVelocity.add(random.nextInt(foodMaxSpeed-foodMinSpeed)+foodMinSpeed);
 				yFoodVelocity.add(random.nextInt(foodMaxSpeed-foodMinSpeed)+foodMinSpeed);
-	    		foodQuantity++;	    		
-	    	}	
-    	}
+				foodQuantity++;
+			}
+		}
+
     	
     }
     
     public void deleteSomeFood(int toDeleteFood) {    	
-    	if(foodQuantity > 0) {
-    		int currentFoodQuantity = foodQuantity;
-	    	for (int i = currentFoodQuantity; i > currentFoodQuantity - toDeleteFood; i--) {
-	    		xFoodCords.remove(foodQuantity-1);
-	    		yFoodCords.remove(foodQuantity-1);
-	    		xFoodVelocity.remove(foodQuantity-1);
-	    		yFoodVelocity.remove(foodQuantity-1);
-	    		foodQuantity--;	    		
-	    	}	
-    	}
+
+		int currentFoodQuantity = foodQuantity;
+		for (int i = currentFoodQuantity; i > currentFoodQuantity - toDeleteFood; i--) {
+			if(foodQuantity > 0) {
+				xFoodCords.remove(foodQuantity - 1);
+				yFoodCords.remove(foodQuantity - 1);
+				xFoodVelocity.remove(foodQuantity - 1);
+				yFoodVelocity.remove(foodQuantity - 1);
+				foodQuantity--;
+			}
+		}
+
     	
     }
     
     public void deleteFood(int id) {    	
-    	if(id >= 0) {
+    	if(id >= 0 && id < foodQuantity) {
     		xFoodCords.remove(id);
     		yFoodCords.remove(id);
     		xFoodVelocity.remove(id);

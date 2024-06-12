@@ -7,15 +7,14 @@ import javax.swing.*;
 public class MainPanel extends JPanel implements ActionListener {
 	
 	//Panel settings
-	final int PANEL_WIDTH = 500;
-    final int PANEL_HEIGHT = 500;
+	final int PANEL_WIDTH = 800;
+    final int PANEL_HEIGHT = 800;
     
     //Creature settings
     int creatureWidth = 30;
     int creatureHeight = 30;
-    double velocityCreature = 4;
+    double velocityCreature = 6;
     double angleCreature = 30;
-    double angleCreatureDynamic = 0.0;
     Creature creature;
     
     //Food settings
